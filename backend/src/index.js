@@ -1,5 +1,5 @@
 const express = require('express')
-const { uuid } = require('uuidv4')
+const { uuid, isUuid } = require('uuidv4')
 
 const app = express()
 
@@ -20,19 +20,51 @@ app.use(express.json())
     REQUEST BODY: Conteúdo na hora de criar ou editar um recurso (JSON)
 */
 
+/*
+    Midleware:
+
+    interceptador de requisições que pode interromper totalmente a requisição ou alterar dados da requisição
+
+*/
+
 const projects = []
+
+function logRequests(request, response, next) {
+    const { method, url } = request
+
+    const logLabel = `[${method.toUpperCase()}] ${url}`
+
+    console.time(logLabel)
+
+    next() // Próximo midleware
+
+    console.timeEnd(logLabel)
+}
+
+/*
+    Todo o app usa o midleware
+    app.use(logRequests)
+ */
+
+function validateProjectId(request, response, next) {
+    const { id } = request.params
+
+    if (!isUuid(id)) return response.status(400).json({ error: 'Invalid Project ID' })
+
+    return next()
+}
+
+app.use('projects/:id', validateProjectId)
 
 app.get('/', (request, response) => {
     return response.json({ message: 'Welcome user!' })
 })
 
-app.get('/projects', (request, response) => {
+app.get('/projects', logRequests, (request, response) => {
 
     const { title } = request.query
 
-    const results = title ?
-        projects.filter(project => project.title.includes(title)) :
-        projects
+    const results = title ? projects.filter(project => project.title.includes(title)) : projects
 
     return response.json(results)
 })
