@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add reflect-database
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add reflect-metada
 
 PATH: 
   C:\Python27\;C:\Python27\Scripts;C:\Program Files\Docker\Docker\Resources\bin;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\SysWOW64\;C:\WINDOWS\SysWOW64\Wbem;C:\WINDOWS\SysWOW64\WindowsPowerShell\v1.0;C:\Program Files (x86)\Microsoft Application Virtualization Client;C:\oracle\ora81\bin;C:\Program Files (x86)\Oracle\jre\1.1.7\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\MongoDB\Server\4.2\bin;C:\Users\brrma273\AppData\Roaming\npm;C:\Program Files\Java\jdk1.8.0_211\bin;C:\Users\brrma273\AppData\Local\Microsoft\WindowsApps;C:\Users\brrma273\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\brrma273\AppData\Local\Yarn\bin;C:\Users\brrma273\AppData\Roaming\npm;C:\Program Files\heroku\bin;C:\Users\brrma273\AppData\Local\GitHubDesktop\bin
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/reflect-database: Not found
+  Error: https://registry.yarnpkg.com/reflect-metada: Not found
       at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66036:18)
       at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140586:22)
       at Request.emit (events.js:198:13)
@@ -36,6 +36,7 @@ npm manifest:
       "date-fns": "^2.13.0",
       "express": "^4.17.1",
       "pg": "^8.2.0",
+      "reflect-metadata": "^0.1.13",
       "typeorm": "^0.2.24",
       "uuidv4": "^6.0.8"
     },
