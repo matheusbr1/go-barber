@@ -67,4 +67,6 @@ usersRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), async
     }
 })
 
+console.log('teste')
+
 export default usersRouter
