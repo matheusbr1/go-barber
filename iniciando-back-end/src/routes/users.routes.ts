@@ -6,6 +6,9 @@ import CreateUserService from '../services/CreateUserService'
 // Middleware de autenticação
 import ensureAuthenticated from '../middlewares/ensureAuthenticated'
 
+// Update Avatar Service
+import UpdateUserAvatarService from '../services/UpdateUserAvatarService'
+
 // SoC -> Separation of concerns
 
 const usersRouter = Router()
@@ -46,9 +49,22 @@ usersRouter.post('/', async (request, response) => {
 
 // PATH -> Semelhante ao PUT, mas atualiza uma informação só, já o PUT atualiza várias
 usersRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), async (request, response) => {
-    console.log(request.file)
 
-    return response.json({ ok: true })
+    try {
+        const updateUserAvatar = new UpdateUserAvatarService()
+
+        const user = await updateUserAvatar.execute({
+            user_id: request.user.id,
+            avatarFilename: request.file.filename
+        })
+
+        delete user.password
+
+        return response.json(user)
+
+    } catch (err) {
+        return response.status(400).json({ error: err.message })
+    }
 })
 
 export default usersRouter
