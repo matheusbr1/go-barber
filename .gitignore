@@ -1,2 +1,6 @@
 First-Version-Backup
 node_modules
+temp
+
+temp/*
+!temp/.gitleep
