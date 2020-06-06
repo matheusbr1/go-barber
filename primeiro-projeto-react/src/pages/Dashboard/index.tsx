@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import api from '../../services/api'
 import { Title, Form, Repositories, Error } from './styles'
 import LogoImg from '../../assets/logo.svg'
-import Repository from '../Repository'
 
 interface Repository {
     html_url: string;
