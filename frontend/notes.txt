@@ -1,0 +1,5 @@
+BABEL: Converter (Transpilar) código do React para um código que o browser entenda
+
+WEBPACK: Pra cada tipo de arquivo (.js, .css , .png) eu vou converter o código de uma maneira diferente
+
+Loaders: babel-loader, css-loader, image-loader
