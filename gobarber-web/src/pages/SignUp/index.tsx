@@ -3,21 +3,33 @@ import { FiUser, FiArrowLeft, FiMail, FiLock } from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as yup from 'yup'
-import getValidationErros from '../../Utils/getValidationErros'
-
-import { Container, Content, Background } from './styles'
-import logoImg from '../../assets/logo.svg'
+import { Link, useHistory } from 'react-router-dom'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
+import getValidationErros from '../../Utils/getValidationErros'
+import api from '../../services/api'
+import { Container, Content, Background, AnimationContainer } from './styles'
+import logoImg from '../../assets/logo.svg'
+import { useToast } from '../../hooks/ToastContext'
+
+interface SignUpFormData {
+    name: string,
+    email: string,
+    password: string,
+}
 
 const SignUp: React.FC = () => {
+
+    const history = useHistory()
+
+    const { addToast } = useToast()
 
     const formRef = useRef<FormHandles>(null)
 
     console.log(formRef)
 
-    const handleSubmit = useCallback(async (data: object) => {
+    const handleSubmit = useCallback(async (data: SignUpFormData) => {
         try {
 
             formRef.current?.setErrors({})
@@ -32,37 +44,58 @@ const SignUp: React.FC = () => {
                 abortEarly: false,
             })
 
+            await api.post('/users', data)
+
+            addToast({
+                type: 'success',
+                title: 'Cadastro realizado!',
+                description: 'Você já pode fazer seu Logon no Gobarber'
+            })
+
+            history.push('/')
+
         } catch (err) {
             console.log(err)
 
-            const errors = getValidationErros(err)
+            if (err instanceof yup.ValidationError) {
+                const errors = getValidationErros(err)
 
-            formRef.current?.setErrors(errors)
+                formRef.current?.setErrors(errors)
+
+                return
+            }
+
+            addToast({
+                type: 'error',
+                title: 'Erro no cadastro',
+                description: 'Ocorreu um erro ao fazer Cadastro, tente novamente.'
+            })
         }
-    }, [])
+    }, [addToast, history])
 
     return (
         <Container>
             <Background />
             <Content>
-                <img src={logoImg} alt="goBarber" />
+                <AnimationContainer>
+                    <img src={logoImg} alt="goBarber" />
 
-                <Form ref={formRef} initialData={{ name: 'Matheus', }} onSubmit={handleSubmit} >
-                    <h1>Faça seu Cadastro</h1>
+                    <Form ref={formRef} initialData={{ name: 'Matheus', }} onSubmit={handleSubmit} >
+                        <h1>Faça seu Cadastro</h1>
 
-                    <Input name="name" placeholder="Nome" icon={FiUser} />
-                    <Input name="email" placeholder="E-mail" icon={FiMail} />
-                    <Input name="password" type="password" placeholder="Senha" icon={FiLock} />
+                        <Input name="name" placeholder="Nome" icon={FiUser} />
+                        <Input name="email" placeholder="E-mail" icon={FiMail} />
+                        <Input name="password" type="password" placeholder="Senha" icon={FiLock} />
 
-                    <Button type="submit">Cadastrar</Button>
+                        <Button type="submit">Cadastrar</Button>
 
-                </Form>
+                    </Form>
 
-                <a href="" >
-                    <FiArrowLeft />
+                    <Link to="/" >
+                        <FiArrowLeft />
                     Voltar para Logon
-                </a>
-
+                </Link>
+                </AnimationContainer>
             </Content>
         </Container>
     )
