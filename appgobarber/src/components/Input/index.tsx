@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Container, TextInput, Icon } from './styles'
+import { useField } from '@unform/core'
 
 import { TextInputProps } from 'react-native'
 
@@ -8,18 +9,37 @@ interface InputProps extends TextInputProps {
     icon: string;
 }
 
-const App: React.FC<InputProps> = ({ name, icon, ...rest }) => (
-    <Container>
+interface InputValueReference {
+    value: string
+}
 
-        <Icon name={icon} size={20} color='#666360' />
+const Input: React.FC<InputProps> = ({ name, icon, ...rest }) => {
+    
+    const { registerField, defaultValue = '', fieldName, error }  = useField(name)
+    const inputValueRef = useRef<InputValueReference>({ value: defaultValue })
+    
+    useEffect(() => {
+        registerField({
+            name: fieldName,
+            ref: inputValueRef.current,
+            path: 'value'
+        })
+    },[fieldName, registerField])
 
-        <TextInput 
-            keyboardAppearance='dark'
-            placeholderTextColor='#666360' 
-            {...rest }  
-        />
-    </Container>
-)
+    return (
+        <Container>
+            <Icon name={icon} size={20} color='#666360' />
+            <TextInput 
+                keyboardAppearance='dark'
+                placeholderTextColor='#666360' 
+                onChangeText={value => {
+                    inputValueRef.current.value = value
+                }}
+                {...rest }  
+            />
+        </Container>
+    )
+}
 
-export default App
+export default Input
 
