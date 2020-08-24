@@ -4,7 +4,8 @@ import {
     View, 
     ScrollView, 
     KeyboardAvoidingView, 
-    Platform
+    Platform,
+    TextInput
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
@@ -26,6 +27,9 @@ const SignUp: React.FC = () => {
     const navigation = useNavigation()
     const formRef = useRef<FormHandles>(null)
 
+    const emailInputRef = useRef<TextInput>(null)
+    const passwordInputRef = useRef<TextInput>(null)
+
     return (
         <>
             <KeyboardAvoidingView 
@@ -43,9 +47,35 @@ const SignUp: React.FC = () => {
                             <Title>Crie sua conta</Title>
                         </View>
                         <Form ref={formRef} onSubmit={(data) => console.log(data)} >
-                            <Input name='name' icon='user' placeholder='Nome'/>
-                            <Input name='email' icon='mail' placeholder='E-mail'/>
-                            <Input name='password' icon='lock' placeholder='Senha' />
+                            <Input 
+                                name='name' 
+                                autoCapitalize='words'
+                                icon='user'
+                                returnKeyType='next'
+                                placeholder='Nome'
+                                onSubmitEditing={() => {emailInputRef.current?.focus()}}
+                                />
+                            <Input 
+                                name='email' 
+                                ref={emailInputRef}
+                                keyboardType='email-address'
+                                autoCorrect={false}
+                                autoCapitalize='none'
+                                icon='mail' 
+                                returnKeyType='next'
+                                placeholder='E-mail'
+                                onSubmitEditing={() => {passwordInputRef.current?.focus()}}
+                                />
+                            <Input 
+                                name='password' 
+                                ref={passwordInputRef}
+                                returnKeyType='send'
+                                textContentType='newPassword'
+                                secureTextEntry
+                                icon='lock' 
+                                placeholder='Senha'
+                                onSubmitEditing= {() => formRef.current?.submitForm()}
+                                />
                         </Form>
                         <Button onPress={() => formRef.current?.submitForm()} >Entrar</Button>
                     </Container>
