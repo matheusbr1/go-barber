@@ -20,6 +20,8 @@ import logoImg from '../../assets/logo.png'
 
 import getValidationErros from '../../utils/getValidationErros'
 
+import { useAuth } from '../../hooks/AuthContext'
+
 import { 
     Container,
     Title, 
@@ -40,6 +42,10 @@ const SignIn: React.FC = () => {
     const passwordInputRef = useRef<TextInput>(null)
     const navigation = useNavigation()
 
+    const { signIn, user } = useAuth()
+
+    console.log(user)
+
     const handleSignIn = useCallback(async (data: SignInFormData) => {
         try {
             formRef.current?.setErrors({})
@@ -51,13 +57,11 @@ const SignIn: React.FC = () => {
                 abortEarly: false,
             })
             
-            // await signIn({
-            //     email: data.email,
-            //     password: data.password
-            // })
+            await signIn({
+                email: data.email,
+                password: data.password
+            })
             
-            // history.push('/dashboard')
-        
         } catch (err) {
             if (err instanceof yup.ValidationError) {
                 const errors = getValidationErros(err)
@@ -72,7 +76,7 @@ const SignIn: React.FC = () => {
                 'Ocorreu um erro ao fazer login, cheque as credenciais.'
             )
         }
-        },[])
+        },[signIn])
 
     return (
         <>

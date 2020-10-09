@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Form } from '@unform/mobile'
 import { FormHandles } from '@unform/core'
 import * as yup from 'yup'
+import api from '../../services/api'
 
 import getValidationErros from '../../utils/getValidationErros'
 
@@ -53,7 +54,11 @@ const SignUp: React.FC = () => {
             abortEarly: false,
         })
         
-        // await api.post('/users', data)
+        await api.post('/users', data)
+
+        Alert.alert('Cadastro realizado com sucesso!', 'Você já pode fazer login na aplicação.')
+
+        navigation.goBack()
         
         } catch (err) {
             if (err instanceof yup.ValidationError) {
@@ -67,7 +72,7 @@ const SignUp: React.FC = () => {
                 'Ocorreu um erro ao fazer cadastro'
             )
         }
-        }, [])
+        }, [navigation])
 
     return (
         <>
