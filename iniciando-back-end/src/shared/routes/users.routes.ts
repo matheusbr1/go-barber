@@ -13,7 +13,6 @@ import UpdateUserAvatarService from '../services/UpdateUserAvatarService'
 
 const usersRouter = Router()
 
-
 // Upload do avatar
 const upload = multer(uploadConfig)
 
