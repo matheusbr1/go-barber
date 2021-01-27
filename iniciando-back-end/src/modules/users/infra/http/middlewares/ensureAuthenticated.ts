@@ -1,9 +1,8 @@
 // Importando as funções do express pra usar no middleware
 import { Request, Response, NextFunction } from 'express'
 import { verify } from 'jsonwebtoken'
-import authConfig from '../config/auth'
-
-import appError from '../errors/AppError'
+import authConfig from '@config/auth'
+import appError from '@shared/errors/AppError'
 
 export default function ensureAuthenticated(request: Request, response: Response, next: NextFunction): void {
     const authHeader = request.headers.authorization

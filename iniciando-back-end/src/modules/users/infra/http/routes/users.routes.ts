@@ -1,13 +1,13 @@
 import { Router } from 'express'
 import multer from 'multer'
-import uploadConfig from '../config/upload'
-import CreateUserService from '../services/CreateUserService'
+import uploadConfig from '@config/upload'
+import CreateUserService from '@modules/users/services/CreateUserService'
 
 // Middleware de autenticação
-import ensureAuthenticated from '../middlewares/ensureAuthenticated'
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated'
 
 // Update Avatar Service
-import UpdateUserAvatarService from '../services/UpdateUserAvatarService'
+import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService'
 
 // SoC -> Separation of concerns
 
