@@ -1,6 +1,8 @@
 import { Router } from 'express'
 import multer from 'multer'
 import uploadConfig from '@config/upload'
+
+import UsersRepository from "@modules/users/infra/typeorm/repositories/UsersRepository"
 import CreateUserService from '@modules/users/services/CreateUserService'
 
 // Middleware de autenticação
@@ -27,7 +29,9 @@ services
 usersRouter.post('/', async (request, response) => {
     const { name, email, password } = request.body
 
-    const createUser = new CreateUserService();
+    const usersRepository = new UsersRepository()
+    const createUser = new CreateUserService(usersRepository);
+    
 
     const user = await createUser.execute({
         name,
@@ -43,7 +47,7 @@ usersRouter.post('/', async (request, response) => {
 // PATH -> Semelhante ao PUT, mas atualiza uma informação só, já o PUT atualiza várias
 usersRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), async (request, response) => {
 
-    const updateUserAvatar = new UpdateUserAvatarService()
+    const updateUserAvatar = new UpdateUserAvatarService(usersRepository)
 
     const user = await updateUserAvatar.execute({
         user_id: request.user.id,

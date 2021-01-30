@@ -6,9 +6,9 @@ import cors from 'cors'
 
 import uploadConfig from '@config/upload'
 import AppError from '@shared/errors/AppError'
-import routes from './routes'
 
 import '@shared/infra/typeorm'
+import routes from './routes'
 
 const app = express()
 app.use(cors())
