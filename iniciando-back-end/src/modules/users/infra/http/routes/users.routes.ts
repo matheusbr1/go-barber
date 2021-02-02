@@ -47,6 +47,7 @@ usersRouter.post('/', async (request, response) => {
 // PATH -> Semelhante ao PUT, mas atualiza uma informação só, já o PUT atualiza várias
 usersRouter.patch('/avatar', ensureAuthenticated, upload.single('avatar'), async (request, response) => {
 
+    const usersRepository = new UsersRepository()
     const updateUserAvatar = new UpdateUserAvatarService(usersRepository)
 
     const user = await updateUserAvatar.execute({
