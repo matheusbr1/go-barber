@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { FiLogIn, FiMail } from 'react-icons/fi'
 import { Form } from '@unform/web'
 import { FormHandles } from '@unform/core'
@@ -13,6 +13,7 @@ import getValidationErros from '../../Utils/getValidationErros'
 
 import { useToast } from '../../hooks/ToastContext'
 import { Link, useHistory } from 'react-router-dom'
+import api from '../../services/api'
 
 interface ForgotPasswordFormData {
     email: string;
@@ -20,6 +21,7 @@ interface ForgotPasswordFormData {
 
 const ForgotPassword: React.FC = () => {
 
+    const [loading, setLoading] = useState(false)
     const formRef = useRef<FormHandles>(null)
 
     const { addToast } = useToast()
@@ -28,6 +30,8 @@ const ForgotPassword: React.FC = () => {
 
     const handleSubmit = useCallback(async (data: ForgotPasswordFormData) => {
         try {
+
+            setLoading(true)
 
             formRef.current?.setErrors({})
 
@@ -42,6 +46,15 @@ const ForgotPassword: React.FC = () => {
             })
 
             //  Recuperação de senha
+            await api.post('/password/forgot', {
+              email: data.email
+            })
+
+            addToast({
+              type: 'success',
+              title: 'E-mail de recuperação enviado',
+              description: 'Enviamos um e-mail para confirmar a recuperação de senha, cheque sua caixa de entrada'
+            })
 
             // history.push('/dashboard')
 
@@ -63,7 +76,10 @@ const ForgotPassword: React.FC = () => {
                 description: 'Ocorreu um erro ao tentar realizar a recuperação de senha, tente novamente.'
             })
 
+        } finally {
+          setLoading(false)
         }
+
     }, [addToast])
 
     return (
@@ -77,7 +93,7 @@ const ForgotPassword: React.FC = () => {
 
                         <Input name="email" placeholder="E-mail" icon={FiMail} />
 
-                        <Button type="submit">Recuperar</Button>
+                        <Button type="submit" loading={Number(loading)} >Recuperar</Button>
 
                         <a href="forgot" >Esqueci minha senha</a>
                     </Form>
