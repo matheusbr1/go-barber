@@ -11,7 +11,7 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import getValidationErros from '../../Utils/getValidationErros'
 
-import { useToast } from '../../hooks/ToastContext'
+import { useToast } from '../../hooks/toast'
 import { Link, useHistory } from 'react-router-dom'
 import api from '../../services/api'
 

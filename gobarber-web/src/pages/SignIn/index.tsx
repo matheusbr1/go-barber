@@ -11,8 +11,8 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import getValidationErros from '../../Utils/getValidationErros'
 
-import { useAuth } from '../../hooks/AuthContext'
-import { useToast } from '../../hooks/ToastContext'
+import { useAuth } from '../../hooks/auth'
+import { useToast } from '../../hooks/toast'
 import { Link, useHistory } from 'react-router-dom'
 
 interface SignInFormData {

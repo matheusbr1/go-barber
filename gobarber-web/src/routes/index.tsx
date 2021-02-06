@@ -19,7 +19,6 @@ const Routes: React.FC = () => (
         <Route path="/reset-password" exact component={ResetPassword} />
 
         <Route path="/dashboard" exact component={Dashboard} isPrivate />
-
     </Switch>
 )
 

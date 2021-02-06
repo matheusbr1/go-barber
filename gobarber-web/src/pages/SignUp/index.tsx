@@ -11,7 +11,7 @@ import getValidationErros from '../../Utils/getValidationErros'
 import api from '../../services/api'
 import { Container, Content, Background, AnimationContainer } from './styles'
 import logoImg from '../../assets/logo.svg'
-import { useToast } from '../../hooks/ToastContext'
+import { useToast } from '../../hooks/toast'
 
 interface SignUpFormData {
     name: string,
