@@ -1,4 +1,14 @@
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { isToday, format } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
+import DayPicker, { DayModifiers } from 'react-day-picker'
+import 'react-day-picker/lib/style.css'
+import logoImg from '../../assets/logo.svg'
+import { FiClock, FiPower } from 'react-icons/fi'
+import { useAuth } from '../../hooks/auth'
+
+import api from '../../services/api'
+
 import { 
   Container, 
   Header, 
@@ -12,16 +22,18 @@ import {
   Calendar,
 } from './styles'
 
-import logoImg from '../../assets/logo.svg'
-import { FiClock, FiPower } from 'react-icons/fi'
-import { useAuth } from '../../hooks/auth'
-import DayPicker, { DayModifiers } from 'react-day-picker'
-import 'react-day-picker/lib/style.css'
-import api from '../../services/api'
-
 interface MonthAvailabilityItem {
   day: number;
   available: boolean;
+}
+
+interface Appointment {
+  id: string;
+  date: string;
+  user: {
+    name: string;
+    avatar_url: string;
+  }
 }
 
 const Dashboard: React.FC = () => {
@@ -29,6 +41,7 @@ const Dashboard: React.FC = () => {
   const { signOut, user } = useAuth()
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [currentMonth, setCurrentMonth] = useState(new Date())
+  const [appointments, setAppointments] = useState<Appointment[]>([])
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
     if(modifiers.available) {
@@ -41,6 +54,18 @@ const Dashboard: React.FC = () => {
   },[])
 
   const [monthAvailability, setMonthAvailability] = useState<MonthAvailabilityItem[]>([])
+
+  const seletedDateAsText = useMemo(() => {
+    return format(selectedDate, "'Dia' dd 'de' MMMM", {
+      locale: ptBR
+    })
+  },[selectedDate])
+
+  const selectedWeekDay = useMemo(() => {
+    return format(selectedDate, 'cccc', {
+      locale: ptBR
+    })
+  },[selectedDate])
 
   useEffect(() => {
     api.get(`/providers${user.id}/month-availability`, {
@@ -65,6 +90,18 @@ const Dashboard: React.FC = () => {
 
     return dates
   },[ currentMonth, monthAvailability ])
+
+  useEffect(() => {
+    api.get('/appointments/me', {
+      params: {
+        year: selectedDate.getFullYear(),
+        month: selectedDate.getMonth() + 1,
+        day: selectedDate.getDate()
+      }
+    }).then(response => {
+      setAppointments(response.data)
+    })
+  },[selectedDate])
 
   return (
     <Container>
@@ -91,9 +128,9 @@ const Dashboard: React.FC = () => {
 
           <h1>Horários agendados</h1>
           <p>
-            <span>Hoje</span>
-            <span>Dia 6</span>
-            <span>Segunda-Feira</span>
+            {isToday(selectedDate) && <span>Hoje</span>}
+            <span>{seletedDateAsText}</span>
+            <span>{selectedWeekDay}</span>
           </p>
 
           <NextAppointment>
