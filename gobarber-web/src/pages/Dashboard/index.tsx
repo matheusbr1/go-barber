@@ -22,6 +22,7 @@ import {
   Calendar,
 } from './styles'
 import { isAfter, parseISO } from 'date-fns/esm'
+import { Link } from 'react-router-dom'
 
 interface MonthAvailabilityItem {
   day: number;
@@ -140,7 +141,9 @@ const Dashboard: React.FC = () => {
             <img src="https://avatars.githubusercontent.com/u/28275815?s=460&u=07b68060e0c143581888029bef65ac1496406262&v=4" alt={user.name}/>
             <div>
               <span>Bem-vindo,</span>
-              <strong>{user.name}</strong>
+              <Link to="profile" >
+                <strong>{user.name}</strong>
+              </Link>
             </div>
           </Profile>
       
