@@ -12,7 +12,6 @@ interface IRequest {
 }
 
 // (SOLID)
-
 // Single Responsability Principle
 // Dependency Invertion Principle 
 
