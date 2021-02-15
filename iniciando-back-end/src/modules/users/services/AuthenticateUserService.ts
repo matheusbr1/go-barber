@@ -4,6 +4,7 @@ import authConfig from '@config/auth'
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import IUsersRepository from '@modules/users/repositories/IUserRepository'
+import { injectable, inject } from 'tsyringe'
 
 interface IRequest {
     email: string,
@@ -15,9 +16,13 @@ interface IResponse {
     token: string;
 }
 
+@injectable()
 export default class AuthenticationUserService {
 
-    constructor(private usersRepository: IUsersRepository) {}
+    constructor(
+        @inject('UsersRepository')
+        private usersRepository: IUsersRepository
+    ) {}
 
     public async execute({ email, password }: IRequest): Promise<IResponse> {
 
