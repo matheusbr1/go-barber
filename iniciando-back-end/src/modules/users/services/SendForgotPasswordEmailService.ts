@@ -32,7 +32,7 @@ class sendForgotPasswordEmailService {
       throw new AppError('User does not exists')
     }
 
-    await this.userTokensRepository.generated(user.id)
+    await this.userTokensRepository.generate(user.id)
 
     this.mailProvider.sendMail(
       email, 
