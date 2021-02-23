@@ -2,13 +2,22 @@ import  { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
 import UpdateProfileService from '@modules/users/services/UpdateProfileService'
+import ShowProfileService from '@modules/users/services/ShowProfileService';
 
 // Deve conter no máximo 5 métodos
 // index, show, create , update, delete 
 
 export default class ProfileController {
   public async show(request: Request, response: Response): Promise<Response> {
-    // Exibição do pergil
+    const user_id = request.user.id
+
+    const updateProfile = container.resolve(ShowProfileService);
+
+    const user = await updateProfile.execute({ user_id })
+
+    delete user.password
+
+    return response.json(user)
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
