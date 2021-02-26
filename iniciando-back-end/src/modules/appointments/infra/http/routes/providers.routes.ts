@@ -1,19 +1,25 @@
 import { Router } from 'express'
 
-import ProvidersController from '../controllers/ProvidersController'
-
 // Middleware of authentication
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated'
 
-// SoC -> Separation of concerns
+
+import ProvidersController from '../controllers/ProvidersController'
+import ProviderMonthAvailabilityController from '../controllers/ProviderMonthAvailabilityController'
+import ProviderDayAvailabilityController from '../controllers/ProviderDayAvailabilityController'
 
 const providersRouter = Router()
+
 const providersControllers = new ProvidersController()
+const providerMonthAvailabilityController = new ProviderMonthAvailabilityController()
+const providerDayAvailabilityController = new ProviderDayAvailabilityController()
 
 // Apply middleware on all routes
 providersRouter.use(ensureAuthenticated)
 
 // Routes
 providersRouter.get('/', providersControllers.index)
+providersRouter.get('/:provider_id/month-availability', providerMonthAvailabilityController.index)
+providersRouter.get('/:provider_id/day-availability', providerDayAvailabilityController.index)
 
 export default providersRouter
