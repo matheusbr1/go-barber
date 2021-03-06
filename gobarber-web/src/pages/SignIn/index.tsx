@@ -53,8 +53,6 @@ const SignIn: React.FC = () => {
 
         } catch (err) {
 
-            console.log(err)
-
             if (err instanceof yup.ValidationError) {
                 const errors = getValidationErros(err)
 
