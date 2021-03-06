@@ -23,8 +23,8 @@ class CreateAppointmentService {
         @inject('AppointmentsRepository')
         private appointmentsRepository: IAppointmentsRepository,
 
-        @inject('NotificaionsRepository')
-        private notificationsRepository: INotificationsRepository
+        // @inject('NotificaionsRepository')
+        // private notificationsRepository: INotificationsRepository
     ) {}
 
     public async execute({ date, provider_id, user_id }: IRequest): Promise<Appointment> {
@@ -57,10 +57,10 @@ class CreateAppointmentService {
 
         const dateFormatted = format(appointmentDate, "dd/MM/yyyy 'às' HH:mm'h'")
 
-        await this.notificationsRepository.create({
-            recipient_id: provider_id,
-            content: `Novo agendamento para dia ${dateFormatted}`
-        })
+        // await this.notificationsRepository.create({
+        //     recipient_id: provider_id,
+        //     content: `Novo agendamento para dia ${dateFormatted}`
+        // })
 
         return appointment
     }
