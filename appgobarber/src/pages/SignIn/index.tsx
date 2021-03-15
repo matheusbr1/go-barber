@@ -18,9 +18,9 @@ import Input from '../../components/Input'
 import Button from '../../components/Button'
 import logoImg from '../../assets/logo.png'
 
-import getValidationErros from '../../utils/getValidationErros'
+import getValidationErrors from '../../utils/getValidationErrors'
 
-import { useAuth } from '../../hooks/AuthContext'
+import { useAuth } from '../../hooks/auth'
 
 import { 
     Container,
@@ -64,7 +64,7 @@ const SignIn: React.FC = () => {
             
         } catch (err) {
             if (err instanceof yup.ValidationError) {
-                const errors = getValidationErros(err)
+                const errors = getValidationErrors(err)
 
                 console.log(errors)
  

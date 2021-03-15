@@ -15,7 +15,7 @@ import { FormHandles } from '@unform/core'
 import * as yup from 'yup'
 import api from '../../services/api'
 
-import getValidationErros from '../../utils/getValidationErros'
+import getValidationErrors from '../../utils/getValidationErrors'
 
 import Input from '../../components/Input'
 import Button from '../../components/Button'
@@ -62,7 +62,7 @@ const SignUp: React.FC = () => {
         
         } catch (err) {
             if (err instanceof yup.ValidationError) {
-                const errors = getValidationErros(err)
+                const errors = getValidationErrors(err)
                 console.log(errors)
                 formRef.current?.setErrors(errors)
                 return
