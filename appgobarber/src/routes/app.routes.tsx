@@ -12,11 +12,11 @@ const AppRoutes: React.FC = () => (
   <App.Navigator screenOptions={{
     cardStyle: { backgroundColor: '#312e39' }
   }}>
-     <App.Screen name="Dashboard" component={Dashboard} />
-     <App.Screen name="CreateAppointment" component={CreateAppointment} />
-     <App.Screen name="AppointmentCreated" component={AppointmentCreated} />
+     <App.Screen name="dashboard" component={Dashboard} />
+     <App.Screen name="createAppointment" component={CreateAppointment} />
+     <App.Screen name="appointmentCreated" component={AppointmentCreated} />
 
-     <App.Screen name="Profile" component={Profile} />
+     <App.Screen name="profile" component={Profile} />
   </App.Navigator>
 )
 

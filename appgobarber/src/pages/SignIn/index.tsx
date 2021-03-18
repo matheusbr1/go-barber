@@ -61,7 +61,7 @@ const SignIn: React.FC = () => {
                 email: data.email,
                 password: data.password
             })
-            
+
         } catch (err) {
             if (err instanceof yup.ValidationError) {
                 const errors = getValidationErrors(err)
@@ -82,11 +82,11 @@ const SignIn: React.FC = () => {
         <>
             <KeyboardAvoidingView 
                     behavior={Platform.OS === 'ios' ? 'padding': undefined} 
-                    style={{ flex:1 }}
+                    style={{ flex: 1 }}
                     enabled
                 >
                 <ScrollView 
-                    contentContainerStyle={{ flex:1 }}
+                    contentContainerStyle={{ flex: 1 }}
                     keyboardShouldPersistTaps='handled'
                 >
                     <Container>
