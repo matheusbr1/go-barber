@@ -44,14 +44,15 @@ const SignIn: React.FC = () => {
 
     const { signIn, user } = useAuth()
 
-    console.log(user)
-
     const handleSignIn = useCallback(async (data: SignInFormData) => {
         try {
             formRef.current?.setErrors({})
             const schema = yup.object().shape({
-                email: yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
-                password: yup.string().required('Senha obrigatória')
+                email: yup.string()
+                  .required('E-mail obrigatório')
+                  .email('Digite um e-mail válido'),
+                password: yup.string()
+                  .required('Senha obrigatória')
             })
             await schema.validate(data, {
                 abortEarly: false,
@@ -79,60 +80,60 @@ const SignIn: React.FC = () => {
         },[signIn])
 
     return (
-        <>
-            <KeyboardAvoidingView 
-                    behavior={Platform.OS === 'ios' ? 'padding': undefined} 
-                    style={{ flex: 1 }}
-                    enabled
-                >
-                <ScrollView 
-                    contentContainerStyle={{ flex: 1 }}
-                    keyboardShouldPersistTaps='handled'
-                >
-                    <Container>
-                        <Image source={logoImg} />
-                        <View>
-                            <Title>Faça seu logon</Title>
-                        </View>
-                        <Form onSubmit={handleSignIn} ref={formRef} >
-                            <Input 
-                                autoCorrect={false}
-                                autoCapitalize="none"
-                                keyboardType="email-address"
-                                name='email' 
-                                icon='mail' 
-                                placeholder='E-mail'
-                                returnKeyType="next"
-                                onSubmitEditing={() => {
-                                    passwordInputRef.current?.focus()
-                                }}
-                            />
-                            <Input 
-                                ref={passwordInputRef}
-                                name='password' 
-                                icon='lock' 
-                                placeholder='Senha' 
-                                secureTextEntry
-                                returnKeyType="send"
-                                onSubmitEditing={() => {
-                                    formRef.current?.submitForm()
-                                }}
-                            />
-                        </Form>
-                        <Button onPress={() => formRef.current?.submitForm()}> Entrar </Button>
-                        <ForgotPassword onPress={() => console.log('Recover password')}>
-                            <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
-                        </ForgotPassword>
-                    </Container>
-                </ScrollView>
-            </KeyboardAvoidingView>
-            <CreateAccountButton onPress={() => navigation.navigate('SignUp')} >
-                <Icon name="log-in" size={20} color="#ff9000" />
-                <CreateAccountButtonText>
-                    Criar uma conta
-                </CreateAccountButtonText>
-            </CreateAccountButton>
-        </>
+      <>
+        <KeyboardAvoidingView 
+          behavior={Platform.OS === 'ios' ? 'padding': undefined} 
+          style={{ flex: 1 }}
+          enabled
+        >
+          <ScrollView 
+            contentContainerStyle={{ flex: 1 }}
+            keyboardShouldPersistTaps='handled'
+          >
+            <Container>
+                  <Image source={logoImg} />
+                  <View>
+                      <Title>Faça seu logon</Title>
+                  </View>
+                  <Form onSubmit={handleSignIn} ref={formRef} >
+                    <Input 
+                      autoCorrect={false}
+                      autoCapitalize="none"
+                      keyboardType="email-address"
+                      name='email' 
+                      icon='mail' 
+                      placeholder='E-mail'
+                      returnKeyType="next"
+                      onSubmitEditing={() => {
+                        passwordInputRef.current?.focus()
+                      }}
+                    />
+                    <Input 
+                      ref={passwordInputRef}
+                      name='password' 
+                      icon='lock' 
+                      placeholder='Senha' 
+                      secureTextEntry
+                      returnKeyType="send"
+                      onSubmitEditing={() => {
+                        formRef.current?.submitForm()
+                      }}
+                    />
+                  </Form>
+                  <Button onPress={() => formRef.current?.submitForm()}> Entrar </Button>
+                <ForgotPassword onPress={() => console.log('Recover password')}>
+                  <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
+                </ForgotPassword>
+            </Container>
+          </ScrollView>
+        </KeyboardAvoidingView>
+        <CreateAccountButton onPress={() => navigation.navigate('SignUp')} >
+            <Icon name="log-in" size={20} color="#ff9000" />
+            <CreateAccountButtonText>
+              Criar uma conta
+            </CreateAccountButtonText>
+        </CreateAccountButton>
+      </>
     )
 } 
 

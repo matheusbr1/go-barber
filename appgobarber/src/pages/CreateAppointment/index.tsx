@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Icon from 'react-native-vector-icons/Feather'
 import api from '../../services/api'
 import DateTimePicker from '@react-native-community/datetimepicker'
-import { Platform } from 'react-native'
+import { Platform, Alert } from 'react-native'
 import { format } from 'date-fns'
 
 import { 
@@ -28,6 +28,8 @@ import {
   SectionContent,
   Hour,
   HourText,
+  CreateAppointmentButton,
+  CreateAppointmentButtonText,
 } from './styles'
 
 interface RouteParams {
@@ -46,6 +48,7 @@ interface AvailabilityItem {
 }
 
 const CreateAppointment: React.FC = () => {
+  const { navigate } = useNavigation()
   const route = useRoute()
   const routeParams = route.params as RouteParams
   const [avatarMock] = useState('https://avatars.githubusercontent.com/u/28275815?v=4')
@@ -106,6 +109,28 @@ const CreateAppointment: React.FC = () => {
   const handleSelectHour = useCallback((hour: number) => {
     setSelectedHour(hour)
   }, [])
+
+  const handleCreateAppointment = useCallback(async () => {
+      try {
+        
+        const date = new Date(selectedDate)
+        date.setHours(selectedHour)
+        date.setMinutes(0)
+
+        await api.post('appointments', {
+          provider_id: selectedProvider,
+          date
+        })
+
+        navigate('appointmentCreated', { date: date.getTime() })
+
+      } catch (error) {
+        Alert.alert(
+          'Erro ao criar agendamento',
+          'Ocorreu um erro ao tentar criar o agendamento, tente novamente'
+        )
+      }
+  }, [selectedDate, selectedHour, selectedProvider])
 
   const morningAvailability = useMemo(() => {
     return availability
@@ -228,6 +253,13 @@ const CreateAppointment: React.FC = () => {
             </SectionContent>
           </Section>
         </Schedule>
+
+        <CreateAppointmentButton onPress={handleCreateAppointment} >
+          <CreateAppointmentButtonText>
+            Agendar
+          </CreateAppointmentButtonText>
+        </CreateAppointmentButton>
+        
       </Content>
 
     </Container>
