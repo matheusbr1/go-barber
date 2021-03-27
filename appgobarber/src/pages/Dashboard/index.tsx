@@ -33,7 +33,7 @@ export interface Provider {
 const Dashboard: React.FC = () => {
   const [avatarMock] = useState('https://avatars.githubusercontent.com/u/28275815?v=4')
 
-  const { user, signOut } = useAuth()
+  const { user } = useAuth()
 
   const [providers, setProviders] = useState<Provider[]>([])
 
@@ -46,9 +46,7 @@ const Dashboard: React.FC = () => {
   },[])
 
   const navigateToProfile = useCallback(() => {
-    // navigate('profile')
-
-    signOut()
+    navigate('profile')
   }, [navigate])
 
   const navigateToCreateAppointment = useCallback((providerId: string) => {
