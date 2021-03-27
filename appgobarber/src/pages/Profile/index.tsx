@@ -7,6 +7,7 @@ import {
     TextInput,
     Alert
 } from 'react-native'
+
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
 import { Form } from '@unform/mobile'
@@ -125,6 +126,10 @@ const Profile: React.FC = () => {
         }
         }, [navigation])
 
+    const handleUpdateAvatar = useCallback(() => {
+      // Implementar outra lib
+    }, [])
+
     const handleGoBack = useCallback(() => {
       navigation.goBack()
     }, [navigation])
@@ -143,7 +148,7 @@ const Profile: React.FC = () => {
                   <Icon name='chevron-left' size={24} color='#999591' />
                 </BackButton>
 
-                <UserAvatarButton onPress={() => {}} >
+                <UserAvatarButton onPress={handleUpdateAvatar} >
                   <UserAvatar source={{ uri: avatarMock }} />
                 </UserAvatarButton>
 

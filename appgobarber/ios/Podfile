@@ -8,6 +8,7 @@ target 'appgobarber' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+
   target 'appgobarberTests' do
     inherit! :complete
     # Pods for testing
