@@ -5,8 +5,9 @@ import { useField } from '@unform/core'
 import { TextInputProps } from 'react-native'
 
 interface InputProps extends TextInputProps {
-    name: string;
-    icon: string;
+    name: string
+    icon: string
+    containerStyle?: {}
 }
 
 interface InputValueReference {
@@ -17,7 +18,9 @@ interface InputRef {
     focus(): void
 }
 
-const Input: React.RefForwardingComponent<InputRef, InputProps> = ({ name, icon, ...rest }, ref) => {
+const Input: React.RefForwardingComponent<InputRef, InputProps> = (
+    { name, icon, containerStyle = {}, ...rest }, ref
+) => {
 
     const inputElementRef = useRef<any>(null)
     const { registerField, defaultValue = '', fieldName, error }  = useField(name)
@@ -58,20 +61,20 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = ({ name, icon,
     },[fieldName, registerField])
 
     return (
-        <Container isFocused={isFocused} isErrored={!!error} >
-            <Icon name={icon} size={20} color={isFocused || isFilled ? '#ff9000' : '#666360'} />
-            <TextInput 
-                ref = {inputElementRef}
-                keyboardAppearance='dark'
-                placeholderTextColor='#666360' 
-                onFocus={handleInputFocus}
-                onBlur={handleInputBlur}
-                onChangeText={value => {
-                    inputValueRef.current.value = value
-                }}
-                {...rest }  
-            />
-        </Container>
+      <Container isFocused={isFocused} isErrored={!!error} style={containerStyle} >
+        <Icon name={icon} size={20} color={isFocused || isFilled ? '#ff9000' : '#666360'} />
+        <TextInput 
+          ref = {inputElementRef}
+          keyboardAppearance='dark'
+          placeholderTextColor='#666360' 
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
+          onChangeText={value => {
+              inputValueRef.current.value = value
+          }}
+          {...rest }  
+        />
+      </Container>
     )
 }
 
