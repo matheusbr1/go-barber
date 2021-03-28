@@ -16,8 +16,8 @@ import { useHistory, useLocation } from 'react-router-dom'
 import api from '../../services/api'
 
 interface ResetPasswordFormData {
-    password: string;
-    password_confirmation: string;
+    password: string
+    password_confirmation: string
 }
 
 const SignIn: React.FC = () => {

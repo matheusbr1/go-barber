@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { FiUser, FiMail, FiLock, FiCamera, FiArrowDownLeft, FiArrowLeft } from 'react-icons/fi'
+import { FiUser, FiMail, FiLock, FiCamera, FiArrowLeft } from 'react-icons/fi'
 import { FormHandles } from '@unform/core'
 import { Form } from '@unform/web'
 import * as yup from 'yup'
@@ -15,11 +15,11 @@ import { useToast } from '../../hooks/toast'
 import { useAuth } from '../../hooks/auth'
 
 interface ProfileFormData {
-    name: string,
-    email: string,
-    password: string,
-    old_password: string,
-    password_confirmation: string,
+    name: string
+    email: string
+    password: string
+    old_password: string
+    password_confirmation: string
 }
 
 const Profile: React.FC = () => {

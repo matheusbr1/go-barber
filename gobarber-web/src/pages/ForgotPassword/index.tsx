@@ -12,11 +12,11 @@ import Button from '../../components/Button'
 import getValidationErros from '../../Utils/getValidationErros'
 
 import { useToast } from '../../hooks/toast'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import api from '../../services/api'
 
 interface ForgotPasswordFormData {
-    email: string;
+    email: string
 }
 
 const ForgotPassword: React.FC = () => {
@@ -25,8 +25,6 @@ const ForgotPassword: React.FC = () => {
     const formRef = useRef<FormHandles>(null)
 
     const { addToast } = useToast()
-
-    const history = useHistory()
 
     const handleSubmit = useCallback(async (data: ForgotPasswordFormData) => {
         try {

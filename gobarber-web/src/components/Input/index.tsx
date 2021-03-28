@@ -4,12 +4,11 @@ import { FiAlertCircle } from 'react-icons/fi'
 import { useField } from '@unform/core'
 
 import { Container, Error } from './styles'
-import Tooltip from '../Tooltip/index'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-    name: string;
-    containerStyle?: object;
-    icon?: React.ComponentType<IconBaseProps>;
+    name: string
+    containerStyle?: object
+    icon?: React.ComponentType<IconBaseProps>
 }
 
 const Input: React.FC<InputProps> = ({ name, icon: Icon, containerStyle, ...rest }) => {

@@ -3,9 +3,9 @@ import styled, { css } from 'styled-components'
 import Tooltip from '../Tooltip/index'
 
 interface ContainerProps {
-    isFocused: boolean;
-    isFilled: boolean;
-    isErrored: boolean;
+    isFocused: boolean
+    isFilled: boolean
+    isErrored: boolean
 }
 
 export const Container = styled.div<ContainerProps>`

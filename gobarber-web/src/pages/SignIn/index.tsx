@@ -16,8 +16,8 @@ import { useToast } from '../../hooks/toast'
 import { Link, useHistory } from 'react-router-dom'
 
 interface SignInFormData {
-    email: string;
-    password: string;
+    email: string
+    password: string
 }
 
 const SignIn: React.FC = () => {

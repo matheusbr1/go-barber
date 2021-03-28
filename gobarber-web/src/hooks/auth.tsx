@@ -4,25 +4,25 @@ import { createContext } from 'react'
 import api from '../services/api'
 
 interface User {
-    id: string;
-    avatar_url: string;
-    email: string;
-    name: string;
+    id: string
+    avatar_url: string
+    email: string
+    name: string
 }
 
 interface AuthState {
-    token: string;
-    user: User;
+    token: string
+    user: User
 }
 
 interface SignInCredentials {
-    email: string;
-    password: string;
+    email: string
+    password: string
 }
 
 interface AuthContextData {
-    user: User;
-    signIn(credentials: SignInCredentials): Promise<void>;
+    user: User
+    signIn(credentials: SignInCredentials): Promise<void>
     signOut(): void;
     updateUser(user: User): void
 }

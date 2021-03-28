@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { isToday, format } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import DayPicker, { DayModifiers } from 'react-day-picker'
@@ -25,17 +25,17 @@ import { isAfter, parseISO } from 'date-fns/esm'
 import { Link } from 'react-router-dom'
 
 interface MonthAvailabilityItem {
-  day: number;
-  available: boolean;
+  day: number
+  available: boolean
 }
 
 interface Appointment {
-  id: string;
-  date: string;
-  hourFormatted: string;
+  id: string
+  date: string
+  hourFormatted: string
   user: {
-    name: string;
-    avatar_url: string;
+    name: string
+    avatar_url: string
   }
 }
 

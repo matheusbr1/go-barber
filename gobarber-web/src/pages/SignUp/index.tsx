@@ -14,9 +14,9 @@ import logoImg from '../../assets/logo.svg'
 import { useToast } from '../../hooks/toast'
 
 interface SignUpFormData {
-    name: string,
-    email: string,
-    password: string,
+    name: string
+    email: string
+    password: string
 }
 
 const SignUp: React.FC = () => {
